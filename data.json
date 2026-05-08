@@ -4,5 +4,4 @@
   {"id":103, "title":"Sensor IoT", "desc":"Monitoreo de temperatura y envío a la nube"},
   {"id":104, "title":"Portal de Recursos", "desc":"Sitio con materiales didácticos para docentes"},
   {"id":105, "title":"Simulador Física", "desc":"Simulador interactivo de movimientos rectilíneos"},
-
 ]
