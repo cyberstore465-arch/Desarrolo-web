@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>V Concurso de Tecnología, Innovación y Robótica Educativa 2026</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome (CDN pública) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plh7eecICIKApzNB2sR4VcBNYQHaA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --bg-deep:    #020c18;
+      --bg-dark:    #041428;
+      --bg-card:    #071e36;
+      --bg-card2:   #082440;
+      --cyan:       #00e5ff;
+      --cyan-dim:   #00b8d4;
+      --cyan-glow:  rgba(0,229,255,0.18);
+      --teal:       #00bfa5;
+      --accent:     #ff6d00;
+      --text:       #e0f7fa;
+      --text-muted: #80cbc4;
+      --border:     rgba(0,229,255,0.25);
+      --radius:     12px;
+      --shadow:     0 0 30px rgba(0,229,255,0.12);
+      --font-head:  'Orbitron', sans-serif;
+      --font-body:  'Exo 2', sans-serif;
+      --nav-h:      70px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       ANIMATED BACKGROUND GRID
+    ============================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(2,12,24,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo i { font-size: 1.3rem; }
+
+    .nav-links {
+      display: flex;
+      gap: 0.2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all 0.25s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+      background: var(--cyan-glow);
+    }
+
+    .nav-cta {
+      background: var(--cyan);
+      color: var(--bg-deep) !important;
+      font-weight: 700 !important;
+      border-radius: 6px;
+    }
+    .nav-cta:hover {
+      background: #fff !important;
+      color: var(--bg-deep) !important;
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 26px; height: 2px;
+      background: var(--cyan);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: var(--nav-h); left: 0; right: 0; background: rgba(2,12,24,0.97); padding: 1rem 2rem 2rem; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #inicio {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 3rem) 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* rotating ring decoration */
+    #inicio::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border: 1px solid rgba(0,229,255,0.08);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: spin 40s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,255,0.1);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+    .hero-title span { color: var(--cyan); }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 1.2rem auto 2.2rem;
+      font-weight: 300;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .hero-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,109,0,0.1);
+      border: 1px solid rgba(255,109,0,0.3);
+      border-radius: 8px;
+      padding: 8px 18px;
+      color: #ffab40;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      animation: fadeUp 1s 0.25s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 1s 0.35s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg-deep);
+    }
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: 0 0 30px var(--cyan);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      background: var(--cyan-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       SECTIONS COMMON
+    ============================================================ */
+    section { position: relative; z-index: 1; padding: 5rem 2rem; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      font-size: 0.95rem;
+      margin-bottom: 3rem;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ============================================================
+       BIENVENIDA / PRESENTACIÓN
+    ============================================================ */
+    #bienvenida {
+      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-deep) 100%);
+    }
+
+    .bienvenida-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .bienvenida-grid { grid-template-columns: 1fr; } }
+
+    .bienvenida-text p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(0,229,255,0.08);
+    }
+    .info-item:last-child { border-bottom: none; }
+    .info-icon {
+      width: 38px; height: 38px;
+      border-radius: 8px;
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .info-item h4 { font-size: 0.82rem; color: var(--text-muted); font-weight: 400; }
+    .info-item p  { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+
+    /* ============================================================
+       CATEGORÍAS
+    ============================================================ */
+    #categorias { background: var(--bg-deep); }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .cat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--teal));
+    }
+    .cat-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px var(--cyan-glow);
+    }
+    .cat-num {
+      font-family: var(--font-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .cat-card h3 {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .cat-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
+
+    .cat-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0,229,255,0.1);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      color: var(--cyan);
+      margin-top: 0.9rem;
+    }
+
+    /* Maker highlight */
+    .cat-card.maker::before {
+      background: linear-gradient(90deg, var(--accent), #ff8f00);
+    }
+    .cat-card.maker { border-color: rgba(255,109,0,0.3); }
+    .cat-card.maker .cat-num,
+    .cat-card.maker .cat-tag { color: #ffab40; }
+    .cat-card.maker .cat-tag { background: rgba(255,109,0,0.1); border-color: rgba(255,109,0,0.3); }
+    .cat-card.maker:hover { border-color: var(--accent); box-shadow: 0 8px 32px rgba(255,109,0,0.2); }
+
+    /* ============================================================
+       REQUISITOS
+    ============================================================ */
+    #requisitos { background: var(--bg-dark); }
+
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .req-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .req-card .req-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .req-card h4 { font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
+    .req-card p  { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ============================================================
+       ORGANIZADORES
+    ============================================================ */
+    #organizadores { background: var(--bg-deep); }
+
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.4rem;
+    }
+    .org-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .org-card:hover { border-color: var(--cyan); box-shadow: var(--shadow); transform: translateY(-3px); }
+    .org-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--bg-deep);
+    }
+    .org-card h4 { font-weight: 700; color: #fff; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .org-card p  { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ============================================================
+       CASOS DE ÉXITO
+    ============================================================ */
+    #casos { background: var(--bg-dark); }
+
+    .exito-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--cyan-glow);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .exito-panel { display: none; }
+    .exito-panel.active { display: block; }
+
+    .exito-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.4rem;
+    }
+    .exito-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .exito-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--cyan); }
+    .exito-img {
+      width: 100%; height: 160px;
+      background: linear-gradient(135deg, var(--bg-card2), var(--bg-card));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      color: var(--cyan);
+    }
+    .exito-body { padding: 1.2rem; }
+    .exito-body h4 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .exito-body p  { font-size: 0.83rem; color: var(--text-muted); }
+    .exito-edition {
+      display: inline-block;
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.74rem;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============================================================
+       FORMULARIO DE INSCRIPCIÓN
+    ============================================================ */
+    #inscripcion { background: var(--bg-deep); }
+
+    .form-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .form-progress {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .step-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .step-dot.active { background: var(--cyan); border-color: var(--cyan); color: var(--bg-deep); }
+    .step-dot.done   { background: var(--teal); border-color: var(--teal); color: var(--bg-deep); }
+    .step-line { flex: 1; max-width: 80px; height: 2px; background: var(--border); transition: all 0.3s; }
+    .step-line.done { background: var(--teal); }
+
+    .step-label {
+      position: absolute;
+      top: 44px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .step-dot.active .step-label { color: var(--cyan); }
+
+    .form-section { display: none; }
+    .form-section.active { display: block; animation: fadeUp 0.4s ease both; }
+
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      margin-bottom: 1.4rem;
+    }
+    .form-card-title {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group { margin-bottom: 1.3rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    label .req-mark { color: var(--accent); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      transition: all 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0,229,255,0.12);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .radio-item, .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-dark);
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .radio-item:hover, .checkbox-item:hover {
+      border-color: var(--cyan);
+      background: var(--cyan-glow);
+    }
+    .radio-item input, .checkbox-item input { accent-color: var(--cyan); width: 16px; height: 16px; }
+    .radio-item.selected, .checkbox-item.selected {
+      border-color: var(--cyan);
+      background: rgba(0,229,255,0.07);
+    }
+
+    .integrante-block {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .integrante-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .nota-box {
+      background: rgba(255,109,0,0.07);
+      border: 1px solid rgba(255,109,0,0.25);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.86rem;
+      color: #ffab40;
+    }
+    .nota-box strong { color: #ff8f00; }
+
+    .info-box {
+      background: rgba(0,229,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .form-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ============================================================
+       HIDDEN field for "Otro" inputs
+    ============================================================ */
+    .otro-input { display: none; margin-top: 0.5rem; }
+    .otro-input.visible { display: block; }
+
+    /* ============================================================
+       SUCCESS SCREEN
+    ============================================================ */
+    #success-screen {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .success-icon {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      color: var(--bg-deep);
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 40px rgba(0,229,255,0.3);
+    }
+    #success-screen h2 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    #success-screen p { color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+
+    /* ============================================================
+       CONTACTO
+    ============================================================ */
+    #contacto { background: var(--bg-dark); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 1.4rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--cyan-glow);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item h4 { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+    .contact-item a, .contact-item p { font-size: 0.95rem; color: #fff; font-weight: 600; text-decoration: none; }
+    .contact-item a:hover { color: var(--cyan); }
+
+    .social-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .social-btn {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--cyan-glow); border-color: var(--cyan); color: var(--cyan); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .hidden { display: none !important; }
+    .text-cyan { color: var(--cyan); }
+
+    /* Validation states */
+    input.error, select.error, textarea.error {
+      border-color: #ef5350;
+    }
+    .error-msg {
+      font-size: 0.78rem;
+      color: #ef5350;
+      margin-top: 4px;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+  NAV
+============================================================ -->
+<nav>
+  <div class="nav-logo">
+    <i class="fas fa-robot"></i>
+    <span>ROBOTICA 2026</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#inicio" class="active">Inicio</a></li>
+    <li><a href="#bienvenida">Nosotros</a></li>
+    <li><a href="#categorias">Categorías</a></li>
+    <li><a href="#casos">Casos de éxito</a></li>
+    <li><a href="#inscripcion" class="nav-cta">Inscripción</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ============================================================
+  HERO
+============================================================ -->
+<section id="inicio">
+  <div style="position:relative; z-index:2;">
+    <div class="hero-badge"><i class="fas fa-microchip"></i> GINFED · Universidad del Magdalena</div>
+    <h1 class="hero-title">
+      V Concurso de<br/><span>Tecnología, Innovación</span><br/>y Robótica Educativa
+    </h1>
+    <p class="hero-subtitle">
+      Un espacio para reconocer el trabajo de docentes y estudiantes que han introducido prácticas pedagógicas innovadoras a través de la robótica y la tecnología.
+    </p>
+    <div class="hero-time"><i class="fas fa-clock"></i> El registro tarda aproximadamente 6 minutos</div>
+    <div class="hero-btns">
+      <a href="#inscripcion" class="btn btn-primary"><i class="fas fa-edit"></i>Inscribirse ahora</a>
+      <a href="#categorias" class="btn btn-outline"><i class="fas fa-list"></i>Ver categorías</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  BIENVENIDA
+============================================================ -->
+<section id="bienvenida">
+  <div class="container">
+    <div class="section-label">Bienvenida</div>
+    <h2 class="section-title">¿Qué es el Concurso?</h2>
+    <div class="bienvenida-grid">
+      <div class="bienvenida-text">
+        <p>La Universidad del Magdalena, desde la Facultad de Ciencias de la Educación, el programa de Licenciatura en Tecnología y el grupo de Investigación en Informática Educativa – <strong style="color:var(--cyan)">GINFED</strong>, con apoyo de las Vicerrectorías de Investigación y Extensión, organizan el <strong>V Concurso de Tecnología, Innovación, Robótica Educativa 2026</strong>.</p>
+        <p>Este concurso busca reconocer el trabajo de los docentes y estudiantes tanto al interior de la universidad como de los colegios e Instituciones Educativas que han introducido prácticas pedagógicas innovadoras.</p>
+        <p>El concurso está diseñado para participar en <strong style="color:var(--cyan)">6 diferentes categorías</strong>, contemplando desde estudiantes de básica primaria hasta universitarios.</p>
+        <a href="#inscripcion" class="btn btn-primary" style="margin-top:1rem;"><i class="fas fa-rocket"></i>Participar</a>
+      </div>
+      <div>
+        <div class="info-card">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-university"></i></div>
+            <div>
+              <h4>Organiza</h4>
+              <p>GINFED – Universidad del Magdalena</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-layer-group"></i></div>
+            <div>
+              <h4>Categorías</h4>
+              <p>8 categorías (Escolar, Universitaria, Maker)</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-users"></i></div>
+            <div>
+              <h4>Participantes por equipo</h4>
+              <p>1 a 4 estudiantes según categoría</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-video"></i></div>
+            <div>
+              <h4>Video obligatorio</h4>
+              <p>3 a 5 minutos, horizontal, buena calidad de audio</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h4>Ámbito</h4>
+              <p>Regional (Magdalena) y Nacional</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  CATEGORÍAS
+============================================================ -->
+<section id="categorias">
+  <div class="container">
+    <div class="section-label">Participación</div>
+    <h2 class="section-title">Categorías</h2>
+    <p class="section-desc">Selecciona la categoría que corresponde a tu nivel académico. Cada equipo debe contar con la guía de un docente.</p>
+    <div class="cat-grid">
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Escolar · Cat. 1</div>
+        <h3>Transición, 1° y 2° Grado</h3>
+        <p>Para los más pequeños exploradores de la tecnología. Equipo de 1 a 4 estudiantes acompañados de un docente de la institución.</p>
+        <span class="cat-tag"><i class="fas fa-child"></i> Máx. 4 estudiantes</span>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Escolar · Cat. 2</div>
+        <h3>3°, 4° y 5° Grado</h3>
+        <p>Básica primaria avanzada. Equipo de 1 a 4 estudiantes con acompañamiento docente.</p>
+        <span class="cat-tag"><i class="fas fa-child"></i> Máx. 4 estudiantes</span>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Escolar · Cat. 3</div>
+        <h3>6°, 7° y 8° Grado</h3>
+        <p>Básica secundaria. Equipo de 1 a 4 estudiantes con docente acompañante de la institución.</p>
+        <span class="cat-tag"><i class="fas fa-user-graduate"></i> Máx. 4 estudiantes</span>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Escolar · Cat. 4</div>
+        <h3>9°, 10° y 11° Grado <small style="color:var(--cyan-dim)">(Magdalena)</small></h3>
+        <p>Modalidad Regional: Instituciones ubicadas en el departamento del Magdalena. Equipo de 1 a 4 estudiantes.</p>
+        <span class="cat-tag"><i class="fas fa-map-pin"></i> Regional · Máx. 4 estudiantes</span>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Escolar · Cat. 5</div>
+        <h3>9°, 10° y 11° Grado <small style="color:var(--cyan-dim)">(Nacional)</small></h3>
+        <p>Modalidad Nacional: Instituciones de departamentos diferentes al Magdalena. Equipo de 1 a 4 estudiantes.</p>
+        <span class="cat-tag"><i class="fas fa-flag"></i> Nacional · Máx. 4 estudiantes</span>
+      </div>
+
+      <div class="cat-card">
+        <div class="cat-num">Categoría Universitaria · Cat. 6</div>
+        <h3>Pregrado Unimagdalena</h3>
+        <p>Para estudiantes de pregrado de la Universidad del Magdalena. Equipo de 2 estudiantes con docente acompañante.</p>
+        <span class="cat-tag"><i class="fas fa-university"></i> 2 estudiantes</span>
+      </div>
+
+      <div class="cat-card maker">
+        <div class="cat-num">Categoría Maker · Cat. 7</div>
+        <h3>Maker Junior</h3>
+        <p>Estudiantes de 6° a 11°. Equipo de 2 estudiantes con habilidades en ensamble, configuración y programación en Robótica y Electrónica.</p>
+        <div class="nota-box" style="margin-top:0.8rem; font-size:0.82rem; padding:0.6rem 1rem;">
+          <i class="fas fa-video"></i> Se solicita video mostrando habilidades en Arduino, puente H y motor DC.
+        </div>
+        <span class="cat-tag"><i class="fas fa-tools"></i> 2 estudiantes</span>
+      </div>
+
+      <div class="cat-card maker">
+        <div class="cat-num">Categoría Maker · Cat. 8</div>
+        <h3>Maker Senior</h3>
+        <p>Estudiantes de pregrado de Unimagdalena. Equipo de 2 estudiantes con habilidades en Robótica y Electrónica.</p>
+        <div class="nota-box" style="margin-top:0.8rem; font-size:0.82rem; padding:0.6rem 1rem;">
+          <i class="fas fa-video"></i> Se solicita video mostrando habilidades en Arduino, puente H y motor DC.
+        </div>
+        <span class="cat-tag"><i class="fas fa-tools"></i> 2 estudiantes</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  REQUISITOS
+============================================================ -->
+<section id="requisitos">
+  <div class="container">
+    <div class="section-label">Requisitos</div>
+    <h2 class="section-title">Requisitos de Participación</h2>
+    <p class="section-desc">Ten en cuenta los siguientes requisitos antes de inscribirte para garantizar tu participación exitosa.</p>
+
+    <div class="req-grid">
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div>
+          <h4>Docente acompañante</h4>
+          <p>Todo equipo debe contar con un docente de la institución que acompañe el proceso.</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-users"></i></div>
+        <div>
+          <h4>Número de integrantes</h4>
+          <p>Categorías Escolares: 1 a 4 estudiantes. Universitaria y Maker: exactamente 2 estudiantes.</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-video"></i></div>
+        <div>
+          <h4>Video de presentación</h4>
+          <p>Duración: 3 a 5 minutos. Grabado en horizontal con buen volumen de audio.</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-file-alt"></i></div>
+        <div>
+          <h4>Documentos requeridos</h4>
+          <p>Plantilla de resumen y formato de cesión de derechos debidamente diligenciados.</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-globe"></i></div>
+        <div>
+          <h4>Video público</h4>
+          <p>El enlace del video debe estar configurado como visible al público para que los jurados puedan evaluarlo.</p>
+        </div>
+      </div>
+      <div class="req-card">
+        <div class="req-icon"><i class="fas fa-minus-circle"></i></div>
+        <div>
+          <h4>Penalización</h4>
+          <p>El incumplimiento de las recomendaciones de video tendrá una disminución de (-5) puntos en la calificación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  ORGANIZADORES
+============================================================ -->
+<section id="organizadores" style="background:var(--bg-deep);">
+  <div class="container">
+    <div class="section-label">Acerca de nosotros</div>
+    <h2 class="section-title">Organizadores</h2>
+    <p class="section-desc">El concurso es organizado por el grupo GINFED con el apoyo de diferentes instancias de la Universidad del Magdalena.</p>
+    <div class="org-grid">
+      <div class="org-card">
+        <div class="org-avatar">GI</div>
+        <h4>GINFED</h4>
+        <p>Grupo de Investigación en Informática Educativa</p>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar">FC</div>
+        <h4>Fac. Ciencias de la Educación</h4>
+        <p>Facultad líder del programa organizador</p>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar">LT</div>
+        <h4>Lic. en Tecnología</h4>
+        <p>Programa de Licenciatura en Tecnología – Unimagdalena</p>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar">VI</div>
+        <h4>Vicerrectoría Investigación</h4>
+        <p>Apoyo institucional a la investigación</p>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar">VE</div>
+        <h4>Vicerrectoría Extensión</h4>
+        <p>Apoyo institucional a la extensión universitaria</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  CASOS DE ÉXITO
+============================================================ -->
+<section id="casos">
+  <div class="container">
+    <div class="section-label">Casos de éxito</div>
+    <h2 class="section-title">Ediciones Pasadas</h2>
+    <p class="section-desc">Conoce algunos de los proyectos y testimonios destacados de ediciones anteriores del concurso.</p>
+
+    <div class="exito-tabs">
+      <button class="tab-btn active" onclick="showTab('ediciones')">Ediciones</button>
+      <button class="tab-btn" onclick="showTab('proyectos')">Proyectos Ganadores</button>
+      <button class="tab-btn" onclick="showTab('testimonios')">Testimonios</button>
+    </div>
+
+    <div class="exito-panel active" id="tab-ediciones">
+      <div class="exito-grid">
+        <div class="exito-card">
+          <div class="exito-img"><i class="fas fa-trophy"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Edición IV · 2025</span>
+            <h4>IV Concurso de Robótica</h4>
+            <p>Participaron más de 50 equipos de instituciones del Magdalena y de todo el país.</p>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-img"><i class="fas fa-award"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Edición III · 2024</span>
+            <h4>III Concurso de Robótica</h4>
+            <p>Primera edición con modalidad nacional, ampliando la cobertura del concurso a nivel país.</p>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-img"><i class="fas fa-star"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Edición II · 2023</span>
+            <h4>II Concurso de Robótica</h4>
+            <p>Consolidación del concurso con categorías escolares de primaria a bachillerato.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exito-panel" id="tab-proyectos">
+      <div class="exito-grid">
+        <div class="exito-card">
+          <div class="exito-img" style="color:var(--accent);"><i class="fas fa-robot"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Cat. 4 · Ganador 2025</span>
+            <h4>RoboSort</h4>
+            <p>Brazo robótico clasificador de residuos sólidos programado con Arduino y visión artificial.</p>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-img" style="color:var(--teal);"><i class="fas fa-leaf"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Cat. 2 · Ganador 2025</span>
+            <h4>EcoBot</h4>
+            <p>Robot sensor de humedad para monitoreo de plantas en el aula, controlado por bloques de programación.</p>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-img"><i class="fas fa-car"></i></div>
+          <div class="exito-body">
+            <span class="exito-edition">Maker Senior · Ganador 2025</span>
+            <h4>AutoLine</h4>
+            <p>Vehículo seguidor de línea con puente H y control PID implementado en Arduino Mega.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exito-panel" id="tab-testimonios">
+      <div class="exito-grid">
+        <div class="exito-card">
+          <div class="exito-body" style="padding:1.8rem;">
+            <div style="font-size:2rem; color:var(--cyan); margin-bottom:0.8rem;">"</div>
+            <p style="color:var(--text); font-style:italic; margin-bottom:1rem;">Participar en el concurso nos motivó a seguir explorando la robótica. Fue la primera vez que nuestros estudiantes construyeron un robot funcional.</p>
+            <strong style="color:var(--cyan); font-size:0.85rem;">— Docente, IE Técnico Industrial, Santa Marta</strong>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-body" style="padding:1.8rem;">
+            <div style="font-size:2rem; color:var(--cyan); margin-bottom:0.8rem;">"</div>
+            <p style="color:var(--text); font-style:italic; margin-bottom:1rem;">La experiencia fue increíble. Aprendimos a programar, a trabajar en equipo y a solucionar problemas reales con tecnología.</p>
+            <strong style="color:var(--cyan); font-size:0.85rem;">— Estudiante categoría Maker Junior, 2024</strong>
+          </div>
+        </div>
+        <div class="exito-card">
+          <div class="exito-body" style="padding:1.8rem;">
+            <div style="font-size:2rem; color:var(--cyan); margin-bottom:0.8rem;">"</div>
+            <p style="color:var(--text); font-style:italic; margin-bottom:1rem;">El concurso es un escenario único que le da visibilidad al talento de nuestros jóvenes en ciencia y tecnología.</p>
+            <strong style="color:var(--cyan); font-size:0.85rem;">— Rector, IE Nacional, Barranquilla</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  FORMULARIO DE INSCRIPCIÓN
+============================================================ -->
+<section id="inscripcion">
+  <div class="container">
+    <div class="section-label">Inscripción</div>
+    <h2 class="section-title">Formulario de Registro</h2>
+    <p class="section-desc">Completa las 4 secciones. El proceso toma aproximadamente 6 minutos.</p>
+
+    <div class="form-wrapper">
+
+      <!-- Progress bar -->
+      <div class="form-progress" id="formProgress">
+        <div class="step-dot active" id="dot1">1<span class="step-label">Concurso</span></div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2">2<span class="step-label">Equipo</span></div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3">3<span class="step-label">Experiencia</span></div>
+        <div class="step-line" id="line3"></div>
+        <div class="step-dot" id="dot4">4<span class="step-label">Autorización</span></div>
+      </div>
+
+      <!-- STEP 1: Info del concurso -->
+      <div class="form-section active" id="step1">
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-info-circle"></i> Sección 1 – Información del Concurso</div>
+
+          <div class="info-box">
+            <strong style="color:var(--cyan)">V Concurso de Tecnología, Innovación, Robótica Educativa 2026</strong><br/>
+            Organizado por GINFED – Universidad del Magdalena. El concurso contempla categorías escolares (1 a 5), universitaria (6) y Maker (7 y 8). Cada equipo debe estar acompañado por un docente.
+          </div>
+
+          <div class="form-group">
+            <label>1. Selecciona la categoría en la que deseas participar <span class="req-mark">*</span></label>
+            <div class="radio-group" id="catGroup">
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat1"/> <span><strong>Categoría 1:</strong> Transición, Primero y Segundo grado</span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat2"/> <span><strong>Categoría 2:</strong> Tercero, Cuarto y Quinto grado</span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat3"/> <span><strong>Categoría 3:</strong> Sexto, Séptimo y Octavo grado</span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat4"/> <span><strong>Categoría 4:</strong> Noveno, Décimo y Undécimo grado — <em>Regional (Magdalena)</em></span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat5"/> <span><strong>Categoría 5:</strong> Noveno, Décimo y Undécimo grado — <em>Nacional</em></span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat6"/> <span><strong>Categoría 6:</strong> Pregrado – Universidad del Magdalena</span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat7"/> <span><strong>Categoría 7 – Maker Junior:</strong> Sexto a Undécimo grado</span>
+              </label>
+              <label class="radio-item" onclick="selectRadio(this,'cat')">
+                <input type="radio" name="categoria" value="cat8"/> <span><strong>Categoría 8 – Maker Senior:</strong> Pregrado – Universidad del Magdalena</span>
+              </label>
+            </div>
+            <div class="error-msg" id="err-cat">Por favor selecciona una categoría.</div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <span></span>
+          <button class="btn btn-primary" onclick="goTo(2)">Siguiente <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Datos del equipo -->
+      <div class="form-section" id="step2">
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-users"></i> Sección 2 – Datos del Equipo</div>
+
+          <div class="form-group">
+            <label>2. Nombre de la Institución Educativa <span class="req-mark">*</span></label>
+            <input type="text" id="institucion" placeholder="Ej: I.E. Técnica Industrial de Santa Marta"/>
+            <div class="error-msg" id="err-inst">Este campo es obligatorio.</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>3. Departamento de la Institución <span class="req-mark">*</span></label>
+              <div class="radio-group">
+                <label class="radio-item" onclick="selectRadio(this,'depto')">
+                  <input type="radio" name="departamento" value="magdalena"/> Magdalena
+                </label>
+                <label class="radio-item" onclick="selectRadio(this,'depto'); toggleOtroDepto(true)">
+                  <input type="radio" name="departamento" value="otro"/> Otro
+                </label>
+              </div>
+              <input type="text" class="otro-input" id="otroDepto" placeholder="¿Cuál departamento?"/>
+              <div class="error-msg" id="err-depto">Selecciona el departamento.</div>
+            </div>
+
+            <div class="form-group">
+              <label>4. Correo electrónico de contacto <span class="req-mark">*</span></label>
+              <input type="email" id="correo" placeholder="ejemplo@correo.com"/>
+              <div class="error-msg" id="err-correo">Ingresa un correo válido.</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>5. Número telefónico de contacto <span class="req-mark">*</span></label>
+              <input type="tel" id="telefono" placeholder="Ej: 3001234567"/>
+              <div class="error-msg" id="err-tel">Ingresa un teléfono válido.</div>
+            </div>
+            <div class="form-group">
+              <label>17. Nombre del equipo <span class="req-mark">*</span></label>
+              <input type="text" id="nombreEquipo" placeholder="Ej: Los Únicos, Los Tecno..."/>
+              <div class="error-msg" id="err-equipo">Ingresa el nombre del equipo.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>6. Nombre completo del docente acompañante <span class="req-mark">*</span></label>
+            <input type="text" id="docente" placeholder="Nombre completo"/>
+            <div class="error-msg" id="err-doc">Este campo es obligatorio.</div>
+          </div>
+
+          <div class="form-group">
+            <label>7. Tipo y número de documento del docente <span class="req-mark">*</span></label>
+            <input type="text" id="docDocente" placeholder="Ej: CC 12345678"/>
+            <div class="error-msg" id="err-dDoc">Este campo es obligatorio.</div>
+          </div>
+        </div>
+
+        <!-- Integrante 1 -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-user"></i> Integrante #1</div>
+          <div class="form-group">
+            <label>8. Nombre completo <span class="req-mark">*</span></label>
+            <input type="text" id="int1nombre" placeholder="Nombre completo del integrante 1"/>
+            <div class="error-msg" id="err-i1n">Este campo es obligatorio.</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>9. Tipo de documento <span class="req-mark">*</span></label>
+              <div class="radio-group">
+                <label class="radio-item" onclick="selectRadio(this,'tdoc1')"><input type="radio" name="tdoc1" value="CC"/> CC</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc1')"><input type="radio" name="tdoc1" value="TI"/> TI</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc1')"><input type="radio" name="tdoc1" value="RC"/> RC</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc1'); showOtro('otro1')">
+                  <input type="radio" name="tdoc1" value="otro"/> Otro
+                </label>
+              </div>
+              <input type="text" class="otro-input" id="otro1" placeholder="¿Cuál tipo de documento?"/>
+              <div class="error-msg" id="err-i1td">Selecciona tipo de documento.</div>
+            </div>
+            <div class="form-group">
+              <label>10. Número de documento <span class="req-mark">*</span></label>
+              <input type="text" id="int1doc" placeholder="Número de documento"/>
+              <div class="error-msg" id="err-i1d">Este campo es obligatorio.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrante 2 -->
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-user"></i> Integrante #2</div>
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" id="int2nombre" placeholder="Nombre completo del integrante 2"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>11. Tipo de documento</label>
+              <div class="radio-group">
+                <label class="radio-item" onclick="selectRadio(this,'tdoc2')"><input type="radio" name="tdoc2" value="CC"/> CC</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc2')"><input type="radio" name="tdoc2" value="TI"/> TI</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc2')"><input type="radio" name="tdoc2" value="RC"/> RC</label>
+                <label class="radio-item" onclick="selectRadio(this,'tdoc2'); showOtro('otro2')">
+                  <input type="radio" name="tdoc2" value="otro"/> Otro
+                </label>
+              </div>
+              <input type="text" class="otro-input" id="otro2" placeholder="¿Cuál tipo de documento?"/>
+            </div>
+            <div class="form-group">
+              <label>12. Número de documento</label>
+              <input type="text" id="int2doc" placeholder="Número de documento"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrantes 3 y 4 (solo cat 1-5) -->
+        <div id="block34" class="hidden">
+          <div class="info-box"><i class="fas fa-info-circle"></i> Los integrantes 3 y 4 aplican solo para las categorías escolares 1 a 5 (máximo 4 estudiantes).</div>
+
+          <div class="form-card">
+            <div class="form-card-title"><i class="fas fa-user"></i> Integrante #3 <small style="font-weight:400;color:var(--text-muted)">(Solo cat. 1–5)</small></div>
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" id="int3nombre" placeholder="Nombre completo del integrante 3"/>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>13. Tipo de documento</label>
+                <div class="radio-group">
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc3')"><input type="radio" name="tdoc3" value="CC"/> CC</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc3')"><input type="radio" name="tdoc3" value="TI"/> TI</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc3')"><input type="radio" name="tdoc3" value="RC"/> RC</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc3'); showOtro('otro3')">
+                    <input type="radio" name="tdoc3" value="otro"/> Otro
+                  </label>
+                </div>
+                <input type="text" class="otro-input" id="otro3" placeholder="¿Cuál tipo de documento?"/>
+              </div>
+              <div class="form-group">
+                <label>14. Número de documento</label>
+                <input type="text" id="int3doc" placeholder="Número de documento"/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <div class="form-card-title"><i class="fas fa-user"></i> Integrante #4 <small style="font-weight:400;color:var(--text-muted)">(Solo cat. 1–5)</small></div>
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" id="int4nombre" placeholder="Nombre completo del integrante 4"/>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>15. Tipo de documento</label>
+                <div class="radio-group">
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc4')"><input type="radio" name="tdoc4" value="CC"/> CC</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc4')"><input type="radio" name="tdoc4" value="TI"/> TI</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc4')"><input type="radio" name="tdoc4" value="RC"/> RC</label>
+                  <label class="radio-item" onclick="selectRadio(this,'tdoc4'); showOtro('otro4')">
+                    <input type="radio" name="tdoc4" value="otro"/> Otro
+                  </label>
+                </div>
+                <input type="text" class="otro-input" id="otro4" placeholder="¿Cuál tipo de documento?"/>
+              </div>
+              <div class="form-group">
+                <label>16. Número de documento</label>
+                <input type="text" id="int4doc" placeholder="Número de documento"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goTo(1)"><i class="fas fa-arrow-left"></i> Anterior</button>
+          <button class="btn btn-primary" onclick="goTo(3)">Siguiente <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Descripción de la experiencia -->
+      <div class="form-section" id="step3">
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-flask"></i> Sección 3 – Descripción de la Experiencia y/o Recurso</div>
+
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">
+            Detalle brevemente su experiencia o recurso con el que va a participar. Adicionalmente, debe añadir un enlace que contenga un video en el que explique esta experiencia o recurso.
+          </p>
+
+          <div class="form-group">
+            <label>17. Descripción de la experiencia o recurso tecnológico <span class="req-mark">*</span></label>
+            <textarea id="descripcion" rows="5" placeholder="Describa brevemente la experiencia o recurso tecnológico con la que desea participar..."></textarea>
+            <div class="error-msg" id="err-desc">Por favor describe tu experiencia.</div>
+          </div>
+
+          <div class="form-group">
+            <label>Subir plantilla resumen <span class="req-mark">*</span></label>
+            <div style="border:1px dashed var(--border); border-radius:8px; padding:1.5rem; text-align:center; color:var(--text-muted); background:var(--bg-dark); cursor:pointer;" onclick="document.getElementById('filePlantilla').click()">
+              <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem; color:var(--cyan); display:block; margin-bottom:0.5rem;"></i>
+              <span id="filePlantillaName">Haz clic para seleccionar el archivo (PDF o DOCX)</span>
+            </div>
+            <input type="file" id="filePlantilla" accept=".pdf,.docx" style="display:none" onchange="updateFileName('filePlantilla','filePlantillaName')"/>
+            <div class="error-msg" id="err-plant">Por favor sube la plantilla resumen.</div>
+          </div>
+
+          <div class="form-group">
+            <label>Subir formato de cesión de derechos <span class="req-mark">*</span></label>
+            <div style="border:1px dashed var(--border); border-radius:8px; padding:1.5rem; text-align:center; color:var(--text-muted); background:var(--bg-dark); cursor:pointer;" onclick="document.getElementById('fileCesion').click()">
+              <i class="fas fa-cloud-upload-alt" style="font-size:1.8rem; color:var(--cyan); display:block; margin-bottom:0.5rem;"></i>
+              <span id="fileCesionName">Haz clic para seleccionar el archivo (PDF o DOCX)</span>
+            </div>
+            <input type="file" id="fileCesion" accept=".pdf,.docx" style="display:none" onchange="updateFileName('fileCesion','fileCesionName')"/>
+            <div class="error-msg" id="err-ces">Por favor sube el formato de cesión de derechos.</div>
+          </div>
+
+          <div class="form-group">
+            <label>18. Enlace del video de presentación / demostración <span class="req-mark">*</span></label>
+            <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..."/>
+            <div class="error-msg" id="err-vid">Ingresa un enlace válido.</div>
+          </div>
+
+          <div class="nota-box">
+            <strong><i class="fas fa-exclamation-triangle"></i> Recuerda:</strong> el enlace del video debe estar configurado como <strong>visible al público</strong>. El video debe ser horizontal, con buen audio y entre 3 y 5 minutos de duración. El incumplimiento puede resultar en una penalización de (-5) puntos.
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goTo(2)"><i class="fas fa-arrow-left"></i> Anterior</button>
+          <button class="btn btn-primary" onclick="goTo(4)">Siguiente <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Autorización -->
+      <div class="form-section" id="step4">
+        <div class="form-card">
+          <div class="form-card-title"><i class="fas fa-shield-alt"></i> Sección 4 – Autorización de Datos Personales</div>
+
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem; line-height:1.7;">
+            En cumplimiento a lo dispuesto en la <strong style="color:var(--text)">Ley Estatutaria 1581 de 2012</strong> y a su Decreto Reglamentario 1377 de 2013, lo invitamos a conocer la política para la protección de datos personales en
+            <a href="https://www.unimagdalena.edu.co" target="_blank" style="color:var(--cyan);">www.unimagdalena.edu.co</a>.
+            El titular puede ejercer sus derechos enviando su solicitud al correo electrónico
+            <a href="mailto:habeasdata@unimagdalena.edu.co" style="color:var(--cyan);">habeasdata@unimagdalena.edu.co</a>.
+          </p>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem; line-height:1.7;">
+            En ese sentido, autoriza el tratamiento de los datos personales y/o la información registrada en las bases de datos que tenga o llegare a tener UNIMAGDALENA, con fin del cumplimiento de los planes, programas, proyectos y actividades misionales y administrativas de la Universidad.
+          </p>
+
+          <div class="form-group">
+            <label>19. Autorización <span class="req-mark">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item" onclick="selectRadio(this,'auth')">
+                <input type="radio" name="autorizacion" value="autorizo"/>
+                <span>✅ <strong>Autorizo</strong> el tratamiento de mis datos personales por parte de UNIMAGDALENA.</span>
+              </label>
+            </div>
+            <div class="error-msg" id="err-auth">Debes autorizar el tratamiento de datos para continuar.</div>
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goTo(3)"><i class="fas fa-arrow-left"></i> Anterior</button>
+          <button class="btn btn-primary" onclick="submitForm()"><i class="fas fa-paper-plane"></i> Enviar Inscripción</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div id="success-screen">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h2>¡Inscripción enviada!</h2>
+        <p>Tu registro para el <strong>V Concurso de Tecnología, Innovación y Robótica Educativa 2026</strong> ha sido recibido correctamente. Pronto recibirás información al correo registrado. ¡Mucho éxito!</p>
+        <button class="btn btn-outline" style="margin-top:2rem;" onclick="resetForm()"><i class="fas fa-redo"></i> Nueva inscripción</button>
+      </div>
+
+    </div><!-- /form-wrapper -->
+  </div>
+</section>
+
+<!-- ============================================================
+  CONTACTO
+============================================================ -->
+<section id="contacto">
+  <div class="container">
+    <div class="section-label">Contacto</div>
+    <h2 class="section-title">Contáctanos</h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Correo electrónico</h4>
+            <a href="mailto:concurso.robotica@unimagdalena.edu.co">concurso.robotica@unimagdalena.edu.co</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <h4>Teléfono</h4>
+            <p>+57 (5) 430 1292</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <h4>Ubicación</h4>
+            <p>Universidad del Magdalena — Carrera 32 #22-08, Santa Marta, Colombia</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-globe"></i></div>
+          <div>
+            <h4>Sitio web</h4>
+            <a href="https://www.unimagdalena.edu.co" target="_blank">www.unimagdalena.edu.co</a>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-btn" title="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="info-card" style="height:100%;">
+          <div class="form-card-title" style="color:var(--cyan); font-family:var(--font-head); font-size:0.85rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding-bottom:1rem; border-bottom:1px solid var(--border); margin-bottom:1.2rem; display:flex; align-items:center; gap:10px;">
+            <i class="fas fa-question-circle"></i> Preguntas Frecuentes
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-calendar"></i></div>
+            <div>
+              <h4>¿Cuándo es el concurso?</h4>
+              <p>Consulta las fechas en el sitio oficial de la Universidad del Magdalena.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-user-plus"></i></div>
+            <div>
+              <h4>¿Puedo inscribir más de un equipo?</h4>
+              <p>Sí, cada equipo debe completar su propio formulario de inscripción.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-file-download"></i></div>
+            <div>
+              <h4>¿Dónde descargo la plantilla?</h4>
+              <p>La plantilla de resumen y el formato de cesión de derechos se deben descargar desde el portal de GINFED.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+  FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <span>© 2026 GINFED – Universidad del Magdalena. Todos los derechos reservados.</span>
+    <span>
+      <a href="https://www.unimagdalena.edu.co" target="_blank">robotica.edu</a> &nbsp;|&nbsp;
+      <a href="mailto:habeasdata@unimagdalena.edu.co">Términos y condiciones</a> &nbsp;|&nbsp;
+      <a href="https://www.unimagdalena.edu.co" target="_blank">Política de privacidad</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ============================================================
+  JAVASCRIPT
+============================================================ -->
+<script>
+  /* ---- NAV ---- */
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navAs.forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  /* ---- TABS ---- */
+  function showTab(id) {
+    document.querySelectorAll('.exito-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  /* ---- RADIO SELECTION STYLE ---- */
+  function selectRadio(el, name) {
+    document.querySelectorAll(`[onclick*="selectRadio(this,'${name}')"]`).forEach(l => l.classList.remove('selected'));
+    el.classList.add('selected');
+    // Show/hide integrantes 3&4 based on category
+    if (name === 'cat') {
+      const val = el.querySelector('input').value;
+      const block34 = document.getElementById('block34');
+      if (['cat1','cat2','cat3','cat4','cat5'].includes(val)) {
+        block34.classList.remove('hidden');
+      } else {
+        block34.classList.add('hidden');
+      }
+    }
+    // Hide "otro" inputs if they switch away
+    if (name === 'depto') {
+      const val = el.querySelector('input').value;
+      toggleOtroDepto(val === 'otro');
+    }
+  }
+
+  function toggleOtroDepto(show) {
+    const el = document.getElementById('otroDepto');
+    if (show) el.classList.add('visible');
+    else el.classList.remove('visible');
+  }
+
+  function showOtro(id) {
+    document.getElementById(id).classList.add('visible');
+  }
+
+  /* ---- FILE NAMES ---- */
+  function updateFileName(inputId, spanId) {
+    const f = document.getElementById(inputId).files[0];
+    if (f) document.getElementById(spanId).textContent = f.name;
+  }
+
+  /* ---- STEP PROGRESS ---- */
+  let currentStep = 1;
+  const totalSteps = 4;
+
+  function updateProgress(step) {
+    for (let i = 1; i <= totalSteps; i++) {
+      const dot = document.getElementById('dot' + i);
+      dot.classList.remove('active','done');
+      if (i < step) dot.classList.add('done');
+      else if (i === step) dot.classList.add('active');
+      if (i < totalSteps) {
+        const line = document.getElementById('line' + i);
+        line.classList.toggle('done', i < step);
+      }
+    }
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('step' + n);
+    if (el) el.classList.add('active');
+    updateProgress(n);
+    currentStep = n;
+    document.getElementById('inscripcion').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ---- VALIDATION ---- */
+  function clearErrors() {
+    document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('visible'));
+    document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  }
+
+  function showErr(id, inputId) {
+    const msg = document.getElementById(id);
+    if (msg) msg.classList.add('visible');
+    if (inputId) {
+      const inp = document.getElementById(inputId);
+      if (inp) inp.classList.add('error');
+    }
+  }
+
+  function validateStep(n) {
+    clearErrors();
+    let ok = true;
+
+    if (n === 1) {
+      const cat = document.querySelector('input[name="categoria"]:checked');
+      if (!cat) { showErr('err-cat'); ok = false; }
+    }
+
+    if (n === 2) {
+      if (!document.getElementById('institucion').value.trim()) { showErr('err-inst','institucion'); ok = false; }
+      if (!document.querySelector('input[name="departamento"]:checked')) { showErr('err-depto'); ok = false; }
+      const correo = document.getElementById('correo').value.trim();
+      if (!correo || !/^[^@]+@[^@]+\.[^@]+$/.test(correo)) { showErr('err-correo','correo'); ok = false; }
+      if (!document.getElementById('telefono').value.trim()) { showErr('err-tel','telefono'); ok = false; }
+      if (!document.getElementById('docente').value.trim()) { showErr('err-doc','docente'); ok = false; }
+      if (!document.getElementById('docDocente').value.trim()) { showErr('err-dDoc','docDocente'); ok = false; }
+      if (!document.getElementById('int1nombre').value.trim()) { showErr('err-i1n','int1nombre'); ok = false; }
+      if (!document.querySelector('input[name="tdoc1"]:checked')) { showErr('err-i1td'); ok = false; }
+      if (!document.getElementById('int1doc').value.trim()) { showErr('err-i1d','int1doc'); ok = false; }
+      if (!document.getElementById('nombreEquipo').value.trim()) { showErr('err-equipo','nombreEquipo'); ok = false; }
+    }
+
+    if (n === 3) {
+      if (!document.getElementById('descripcion').value.trim()) { showErr('err-desc','descripcion'); ok = false; }
+      const vid = document.getElementById('videoUrl').value.trim();
+      if (!vid || !/^https?:\/\/.+/.test(vid)) { showErr('err-vid','videoUrl'); ok = false; }
+    }
+
+    if (n === 4) {
+      if (!document.querySelector('input[name="autorizacion"]:checked')) { showErr('err-auth'); ok = false; }
+    }
+
+    return ok;
+  }
+
+  function goTo(n) {
+    if (n > currentStep && !validateStep(currentStep)) return;
+    showStep(n);
+  }
+
+  function submitForm() {
+    if (!validateStep(4)) return;
+    // Hide form, show success
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('formProgress').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    document.getElementById('inscripcion').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function resetForm() {
+    document.getElementById('formProgress').style.display = 'flex';
+    document.getElementById('success-screen').style.display = 'none';
+    // Reset all inputs
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea').forEach(i => i.value = '');
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.radio-item').forEach(i => i.classList.remove('selected'));
+    document.querySelectorAll('.otro-input').forEach(i => i.classList.remove('visible'));
+    document.getElementById('block34').classList.add('hidden');
+    clearErrors();
+    showStep(1);
+  }
+</script>
+
+</body>
+</html>
